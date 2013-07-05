@@ -32,26 +32,29 @@ def exe(command):
     return form(command).encode('utf_8') + result + hilighter().encode('utf_8')
 
 def form(command):
-    src = "<html>"
-    src+= "<head>"
-    src+= "<meta charset='utf-8'>"
-    src+= '<script type="text/javascript" src="static/scripts/shCore.js"></script>'
-    src+= '<link type="text/css" rel="stylesheet" href="static/styles/shCore.css"/>'
-    src+= '<link type="text/css" rel="stylesheet" href="static/styles/shThemeDefault.css"/>'
-    src+= '<script type="text/javascript" src="static/scripts/shBrushBash.js"></script>'
-    src+= "<style>*{font-size:small;}</style>"
-    src+= "</head>"
-    src+= "<body onload='document.forms[0].command.focus();'>"
-    src+= "<form action='/execute' method='GET' onload='this.focus();'>"
-    src+= "<input name='command' value='"+command+"'>"
-    src+= "<input type='submit' value='execute'>"
-    src+= "</form>"
-    src+= '<pre class="brush: shell; ruler: true;">'
+    src = """<html>
+    <head>
+     <meta charset='utf-8'>
+     '<script type=text/javascript static/scripts/shCore.js></script>'
+     '<link type=text/css rel=stylesheet href=static/styles/shCore.css/>'
+     '<link type=text/css rel=stylesheet href=static/styles/shThemeDefault.css/>'
+     '<script type=text/javascript static/scripts/shBrushBash.js></script>'
+     <style>*{font-size:small;}</style>
+     </head>
+     <body onload='document.forms[0].command.focus();'>
+     <form action='/execute' method='GET' onload='this.focus();'>
+     <input name='command' value='%s'>
+     <input type='submit' value='execute'>
+     </form>
+     '<pre class="brush: shell; ruler: true;">'
+    """ % command
     return src
 
 def hilighter():
-    src = '</pre>'
-    src+= '<script type="text/javascript">SyntaxHighlighter.all();</script>'
+    src = """
+     </pre>
+     <script type="text/javascript">SyntaxHighlighter.all();</script>
+    """
     return src
 
 if __name__ == '__main__':
