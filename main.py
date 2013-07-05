@@ -29,26 +29,26 @@ def exe(command):
     result = commands.getoutput(command)
     #import dbd; dbd.st_trace
 
-    return form(command).encode('utf_8') + result + hilighter().encode('utf_8')
+    return form(command) + result + hilighter()
 
 def form(command):
     src = """
 <html>
     <head>
      <meta charset='utf-8'>
-     <script type=text/javascript static/scripts/shCore.js></script>
-     <link type=text/css rel=stylesheet href=static/styles/shCore.css/>
-     <link type=text/css rel=stylesheet href=static/styles/shThemeDefault.css/>
-     <script type=text/javascript static/scripts/shBrushBash.js></script>
+     <script type="text/javascript" src="static/scripts/shBrushBash.js"></script>
+     <script type="text/javascript" stc="static/scripts/shCore.js"></script>
+     <link type="text/css" rel="stylesheet" href="static/styles/shCore.css" />
+     <link type="text/css" rel="stylesheet" href="static/styles/shThemeDefault.css"/>
      <style>*{font-size:small;}</style>
      </head>
      <body onload=document.forms[0].command.focus();>
      <form action=/execute method=GET onload=this.focus();>
-     <input name=command value=%s>
-     <input type=submit value=execute>
+     <input name="command" value="%s">
+     <input type="submit" value="execute">
      </form>
      <pre class="brush: shell; ruler: true;">""" % command
-    return src
+    return src.encode('utf-8')
 
 def hilighter():
     src = """</pre>
