@@ -33,7 +33,7 @@ def exe(command):
 
 def form(command):
     src = """
-    <html>
+<html>
     <head>
      <meta charset='utf-8'>
      <script type=text/javascript static/scripts/shCore.js></script>
@@ -47,13 +47,11 @@ def form(command):
      <input name=command value=%s>
      <input type=submit value=execute>
      </form>
-     <pre class="brush: shell; ruler: true;">
-    """ % command
+     <pre class="brush: shell; ruler: true;">""" % command
     return src
 
 def hilighter():
-    src = """
-     </pre>
+    src = """</pre>
      <script type="text/javascript">SyntaxHighlighter.all();</script>
     """
     return src
