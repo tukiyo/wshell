@@ -37,6 +37,7 @@
 						'uname unexpand uniq units unset unshar useradd usermod users uuencode uudecode v vdir ' +
 						'vi watch wc whereis which who whoami Wget xargs yes'
 						;
+		var single_char =  '.';
 
 		this.regexList = [
 			{ regex: /^#!.*$/gm,											css: 'preprocessor bold' },
@@ -45,7 +46,8 @@
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,			css: 'string' },		// double quoted strings
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,			css: 'string' },		// single quoted strings
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),			css: 'keyword' },		// keywords
-			{ regex: new RegExp(this.getKeywords(commands), 'gm'),			css: 'functions' }		// commands
+			{ regex: new RegExp(this.getKeywords(commands), 'gm'),			css: 'functions' },		// commands
+			{ regex: new RegExp(this.getKeywords(single_char), 'gm'),		css: 'keyword' },		// single_char
 			];
 	}
 
