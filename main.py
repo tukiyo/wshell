@@ -10,10 +10,11 @@ from mako.lookup import TemplateLookup
 
 import commands
 
-@view_config(route_name='home')
-def home(request):
-    src = "<a href='/execute?command='>execute page</a>"
-    return Response(src)
+@view_config(route_name='index')
+def index(request):
+    mak_lookup = TemplateLookup(directories=["templates/"], input_encoding='utf-8')
+    template = mak_lookup.get_template('index.mak')
+    return Response(template.render_unicode())
 
 @view_config(route_name='execute')
 def execute(request):
@@ -34,7 +35,7 @@ def run(command):
 
 if __name__ == '__main__':
     config = Configurator()
-    config.add_route('home', '/')
+    config.add_route('index', '/')
     config.add_route('execute', '/execute')
     config.add_static_view(name='static', path='static')
     config.scan()
