@@ -32,21 +32,22 @@ def exe(command):
     return form(command).encode('utf_8') + result + hilighter().encode('utf_8')
 
 def form(command):
-    src = """<html>
+    src = """
+    <html>
     <head>
      <meta charset='utf-8'>
-     '<script type=text/javascript static/scripts/shCore.js></script>'
-     '<link type=text/css rel=stylesheet href=static/styles/shCore.css/>'
-     '<link type=text/css rel=stylesheet href=static/styles/shThemeDefault.css/>'
-     '<script type=text/javascript static/scripts/shBrushBash.js></script>'
+     <script type=text/javascript static/scripts/shCore.js></script>
+     <link type=text/css rel=stylesheet href=static/styles/shCore.css/>
+     <link type=text/css rel=stylesheet href=static/styles/shThemeDefault.css/>
+     <script type=text/javascript static/scripts/shBrushBash.js></script>
      <style>*{font-size:small;}</style>
      </head>
-     <body onload='document.forms[0].command.focus();'>
-     <form action='/execute' method='GET' onload='this.focus();'>
-     <input name='command' value='%s'>
-     <input type='submit' value='execute'>
+     <body onload=document.forms[0].command.focus();>
+     <form action=/execute method=GET onload=this.focus();>
+     <input name=command value=%s>
+     <input type=submit value=execute>
      </form>
-     '<pre class="brush: shell; ruler: true;">'
+     <pre class="brush: shell; ruler: true;">
     """ % command
     return src
 
