@@ -12,20 +12,28 @@ import commands
 
 @view_config(route_name='index')
 def index(request):
-    mak_lookup = TemplateLookup(directories=["templates/"], input_encoding='utf-8')
+    mak_lookup = TemplateLookup(directories=["templates/"])
     template = mak_lookup.get_template('index.mak')
     return Response(template.render_unicode())
 
 @view_config(route_name='execute')
 def execute(request):
-    mak_lookup = TemplateLookup(directories=["templates/"], input_encoding='utf-8')
+    mak_lookup = TemplateLookup(directories=["templates/"])
     template = mak_lookup.get_template('execute.mak')
-    command = request.params['command']
+    command = get_request_value(request, 'command')
+    command_result = run(command)
     result = template.render_unicode(
             command_str=command,
-            command_result=run(command)
+            command_result=command_result
         )
     return Response(result)
+
+def get_request_value(request, param, default=None, encode='utf-8'):
+    try:
+        var = request.params[param]
+    except KeyError:
+        var = default
+    return unicode(var).encode('utf-8')
 
 def run(command):
     if command=="":
