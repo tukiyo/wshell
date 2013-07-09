@@ -1,38 +1,28 @@
-<html>
-<head>
-    <meta charset='utf-8'>
-    <script type="text/javascript" src="static/jquery/jquery.js"></script>
-    <style>
-    * {
-        //font-size:small;
-    }
-    </style>
-    <script type="text/javascript">
-    <!--
-    $(function(){
-    });
-    -->
-    </script>
-</head>
-<body>
+<%!import urllib%>
+<%include file="header.inc"/>
 
-<ul>
-<li> <a href='/execute?command='>execute page</a> </li>
-</ul>
+<ul> <li><a href='execute?command=' target="execute">execute page</a></li> </ul>
+<ul>${makeli("iframe",command="http://www.makotemplates.org/")}</ul>
 
 <h3>examples</h3>
 <ul>
-<li> <a href='/execute?command=cat /proc/cpuinfo'>cat /proc/cpuinfo</a> </li>
-<li> <a href='/execute?command=ps -ef '>ps -ef</a> </li>
-<li> <a href='/execute?command=netstat -anp'>netstat -anp</a> </li>
-<li> <a href='/execute?command=ifconfig -a'>ifconfig -a</a> </li>
-<li> <a href='/execute?command=ifconfig -a | grep inet'>ifconfig -a | grep inet</a> </li>
-<li> <a href='/execute?command=hostname'>hostname</a> </li>
-<li> <a href='/execute?command=free -m'>free -m</a> </li>
-<li> <a href='/execute?command=cat /etc/issue'>cat /etc/issue</a> </li>
-<li> <a href='/execute?command=dpkg -l'>dpkg -l</a> </li>
-<li> <a href='/execute?command=rpm -qal'>rpm -qal</a> </li>
+<%
+commands=[
+    "cat /proc/cpuinfo",
+    "ps -ef",
+    "netstat -anp | grep :",
+    "ifconfig -a | grep inet",
+    "hostname; free -m; df -h; lastlog",
+    "dpkg -l",
+]
+%>
+% for command in commands:
+    ${makeli("execute", command)}
+% endfor
 </ul>
 
-</body>
-</html>
+<%def name="makeli(path, command)">
+    <li><a href='${path}?command=${urllib.quote(command)}' target="${path}">${command}</a></li>
+</%def>
+
+<%include file="footer.inc"/>

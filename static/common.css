@@ -1,0 +1,7 @@
+.syntaxhighlighter {
+    font-size:small !important;
+}
+
+input[type="text"] {
+    width:25em;
+}
