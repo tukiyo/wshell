@@ -3,7 +3,7 @@ var tab_num = 0;
 
 function execute(command, quoted_command) {
     $.ajax({
-        url: "execute?command="+quoted_command,
+        url: "execute?command="+quoted_command
     }).then(
         function(data, status, xhr) {
             make_tab(data, "run", command);
@@ -23,7 +23,7 @@ function input_qiita_tag(tag) {
 
 function alc(word) {
     $.ajax({
-        url: "alc?word="+word,
+        url: "alc?word="+word
     }).then(
         function(data, status, xhr) {
             make_tab(data, "alc", word);
@@ -33,7 +33,7 @@ function alc(word) {
 
 function phpmanual(word) {
     $.ajax({
-        url: "phpmanual?word="+word,
+        url: "phpmanual?word="+word
     }).then(
         function(data, status, xhr) {
             make_tab(data, "phpmanual", word);
@@ -43,7 +43,7 @@ function phpmanual(word) {
 
 function docs_python_jp(word) {
     $.ajax({
-        url: "docs_python_jp?word="+word,
+        url: "docs_python_jp?word="+word
     }).then(
         function(data, status, xhr) {
             make_tab(data, "docs_python_jp", word);
