@@ -31,15 +31,15 @@ def execute(request):
         )
     return Response(result)
 
-@view_config(route_name='iframe')
-def iframe(request):
+@view_config(route_name='alc')
+def alc(request):
     mak_lookup = TemplateLookup(directories=["templates/"])
-    template = mak_lookup.get_template('iframe.mak')
-    url = get_request_value(request, 'url')
-    contents = browse(url)
+    template = mak_lookup.get_template('alc.mak')
+    word = get_request_value(request, 'word')
+    now=get_now()
     result = template.render_unicode(
-            url=url,
-            contents=contents
+            now=now,
+            word=urllib.quote(word)
         )
     return Response(result)
 
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     config = Configurator()
     config.add_route('index', '/')
     config.add_route('execute', '/execute')
-    config.add_route('iframe', '/iframe')
+    config.add_route('alc', '/alc')
     config.add_static_view(name='static', path='static')
     config.scan()
     app = config.make_wsgi_app()

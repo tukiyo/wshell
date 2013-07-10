@@ -21,6 +21,14 @@ input[type="text"] {
             onclick='execute($("#command").val(), $("#command").val());'>run</button>
         </div>
     </li>
+    <li class="nav-header">alc</li>
+    <li>
+        <div class="input-append">
+        <input type="text" class="span2" placeholder="(a)lc" id="alc" accesskey="a"/>
+        <button class="btn" type="button" id="btn_look"
+            onclick='alc($("#alc").val(), $("#alc").val());'>look</button>
+        </div>
+    </li>
     <li class="nav-header">documents</li>
     <li><a href='http://www.makotemplates.org'>www.makotemplates.org</a></li>
     <li><a href='http://docs.makotemplates.org/en/latest/genindex.html'>docs.makotemplates.org</a></li>
@@ -43,18 +51,23 @@ commands=[
     "cat /etc/passwd",
     "cat /etc/group",
     "man -k sh",
+    "stat -f .",
+    "printenv",
 ]
 %>
 % for command in commands:
     ${makeli("execute", command)}
 % endfor
+<%doc>
+    ${makeli("alc", "japanese")}
+</%doc>
 </ul>
 </div>
 </section>
 
 <%def name="makeli(path, command)">
-    % if path=="iframe":
-    <li><a href="${path}?url=${urllib.quote(command)}">${command}</a></li>
+    % if path=="alc":
+    <li><a onclick="alc('${command}','${urllib.quote(command)}'); return false;" />${command}</a></li>
     % else:
     <li><a onclick="execute('${command}','${urllib.quote(command)}'); return false;" />${command}</a></li>
     % endif
