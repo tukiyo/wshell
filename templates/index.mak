@@ -53,6 +53,8 @@ commands=[
     "man -k sh",
     "stat -f .",
     "printenv",
+    "git log",
+    "git status",
 ]
 %>
 % for command in commands:
