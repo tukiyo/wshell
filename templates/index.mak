@@ -6,36 +6,85 @@
 
 <style>
 input[type="text"] {
-    height:30px;
+    height:25px;
+}
+span {
+    cursor:pointer;
 }
 </style>
 
-<section class="span3">
-<div class="well">
+<section class="row">
+<div class="well span3">
 <ul class="nav nav-list">
-    <li class="nav-header">execute</li>
+
+    <li class="nav-header">qiita(q)
+        <span onclick="input_qiita_tag('python');">python</span>
+        <span onclick="input_qiita_tag('php');">php</span>
+        <span onclick="input_qiita_tag('linux');">linux</span>
+        <span onclick="input_qiita_tag('shellscript');">shellscript</span>
+    </li>
     <li>
         <div class="input-append">
-        <input type="text" class="span2" placeholder="(c)ommmand" id="command" accesskey="c"/>
-        <button class="btn" type="button" id="btn_run"
-            onclick='execute($("#command").val(), $("#command").val());'>run</button>
+        <input type="text" class="span2 command" placeholder="(q)iita" accesskey="q"/>
+        <button class="btn" type="button" onclick='var word=$(this).prev().val(); qiita(word, word);'><i class="icon-search"></i></button>
         </div>
     </li>
-    <li class="nav-header">alc</li>
+
+    <li class="nav-header">alc(a)</li>
     <li>
         <div class="input-append">
-        <input type="text" class="span2" placeholder="(a)lc" id="alc" accesskey="a"/>
-        <button class="btn" type="button" id="btn_look"
-            onclick='alc($("#alc").val(), $("#alc").val());'>look</button>
+        <input type="text" class="span2 command" placeholder="(a)lc" accesskey="a"/>
+        <button class="btn" type="button" onclick='var word=$(this).prev().val(); alc(word, word);'><i class="icon-search"></i></button>
         </div>
     </li>
+
+    <li class="nav-header">docs.python.jp(y)</li>
+    <li>
+        <div class="input-append">
+        <input type="text" class="span2 command" placeholder="p(y)thon" accesskey="y"/>
+        <button class="btn" type="button" onclick='var word=$(this).prev().val(); docs_python_jp(word, word);'><i class="icon-search"></i></button>
+        </div>
+    </li>
+
+    <li class="nav-header">phpmanual(p)</li>
+    <li>
+        <div class="input-append">
+        <input type="text" class="span2 command" placeholder="(p)hpmanual" accesskey="p"/>
+        <button class="btn" type="button" onclick='var word=$(this).prev().val(); phpmanual(word, word);'><i class="icon-search"></i></button>
+        </div>
+    </li>
+
+    <li class="nav-header">execute(c)</li>
+    <li>
+        <div class="input-append">
+        <input type="text" class="span2 command" placeholder="(c)ommmand" accesskey="c"/>
+        <button class="btn" type="button" onclick='var word=$(this).prev().val(); execute(word, word);'><i class="icon-fire"></i></button>
+        </div>
+    </li>
+    
+    <li class="nav-header">apt-cache search</li>
+    <li>
+        <div class="input-append">
+        <input type="text" class="span2 command" placeholder="apt-cache search"/>
+        <button class="btn" type="button" onclick='var word="apt-cache search "+$(this).prev().val(); execute(word, word);'><i class="icon-search"></i></button>
+        </div>
+    </li>
+
+    <li class="nav-header">pip search</li>
+    <li>
+        <div class="input-append">
+        <input type="text" class="span2 command" placeholder="pip search"/>
+        <button class="btn" type="button" onclick='var word="pip search "+$(this).prev().val(); execute(word, word);'><i class="icon-search"></i></button>
+        </div>
+    </li>
+
     <li class="nav-header">documents</li>
-    <li><a href='http://www.makotemplates.org'>www.makotemplates.org</a></li>
-    <li><a href='http://docs.makotemplates.org/en/latest/genindex.html'>docs.makotemplates.org</a></li>
-    <li><a href='http://docs.pylonsproject.org/projects/pyramid/en/latest/genindex.html'>docs.pylonsproject.org</a></li>
-    <li><a href='http://twitter.github.io/bootstrap/base-css.html'>bootstrap base-css</a></li>
-    <li><a href='http://twitter.github.io/bootstrap/components.html'>bootstrap components</a></li>
-    <li class="nav-header">examples</li>
+    <li><a target="documents" href='http://www.makotemplates.org'>www.makotemplates.org</a></li>
+    <li><a target="documents" href='http://docs.makotemplates.org/en/latest/genindex.html'>docs.makotemplates.org</a></li>
+    <li><a target="documents" href='http://docs.pylonsproject.org/projects/pyramid/en/latest/genindex.html'>docs.pylonsproject.org</a></li>
+    <li><a target="documents" href='http://twitter.github.io/bootstrap/base-css.html'>bootstrap base-css</a></li>
+    <li><a target="documents" href='http://twitter.github.io/bootstrap/components.html'>bootstrap components</a></li>
+    <li class="nav-header">execute examples</li>
 <%
 commands=[
     "cat /proc/cpuinfo",
@@ -64,7 +113,17 @@ commands=[
     ${makeli("alc", "japanese")}
 </%doc>
 </ul>
+</div><!-- end .well -->
+
+<section class="span11">
+<div class="tabbable">
+    <ul id="nav-tabs" class="nav nav-tabs">
+    </ul>
+    <div id="tab-content" class="tab-content">
+    </div>
 </div>
+</section>
+
 </section>
 
 <%def name="makeli(path, command)">
@@ -74,14 +133,5 @@ commands=[
     <li><a onclick="execute('${command}','${urllib.quote(command)}'); return false;" />${command}</a></li>
     % endif
 </%def>
-
-<section class="span9">
-<div class="tabbable">
-    <ul id="nav-tabs" class="nav nav-tabs">
-    </ul>
-    <div id="tab-content" class="tab-content">
-    </div>
-</div>
-</section>
 
 <%include file="footer.inc"/>

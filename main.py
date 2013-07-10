@@ -43,6 +43,31 @@ def alc(request):
         )
     return Response(result)
 
+@view_config(route_name='phpmanual')
+def phpmanual(request):
+    mak_lookup = TemplateLookup(directories=["templates/"])
+    template = mak_lookup.get_template('phpmanual.mak')
+    word = get_request_value(request, 'word')
+    now=get_now()
+    result = template.render_unicode(
+            now=now,
+            word=urllib.quote(word)
+        )
+    return Response(result)
+
+@view_config(route_name='docs_python_jp')
+def docs_python_jp(request):
+    mak_lookup = TemplateLookup(directories=["templates/"])
+    template = mak_lookup.get_template('docs_python_jp.mak')
+    word = get_request_value(request, 'word')
+    now=get_now()
+    result = template.render_unicode(
+            now=now,
+            word=urllib.quote(word)
+        )
+    return Response(result)
+
+
 def browse(url):
     print url
     if url == "":
@@ -74,6 +99,8 @@ if __name__ == '__main__':
     config.add_route('index', '/')
     config.add_route('execute', '/execute')
     config.add_route('alc', '/alc')
+    config.add_route('phpmanual', '/phpmanual')
+    config.add_route('docs_python_jp', '/docs_python_jp')
     config.add_static_view(name='static', path='static')
     config.scan()
     app = config.make_wsgi_app()

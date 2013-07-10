@@ -10,12 +10,43 @@ function execute(command, quoted_command) {
         }
     );
 }
+
+function qiita(word) {
+    window.open("http://qiita.com/search?q="+word);
+}
+
+function input_qiita_tag(tag) {
+    var input_qiita=$('input[accesskey=q]');
+    input_qiita.val('tag:'+tag+' ');
+    input_qiita.focus();
+}
+
 function alc(word) {
     $.ajax({
         url: "alc?word="+word,
     }).then(
         function(data, status, xhr) {
             make_tab(data, "alc", word);
+        }
+    );
+}
+
+function phpmanual(word) {
+    $.ajax({
+        url: "phpmanual?word="+word,
+    }).then(
+        function(data, status, xhr) {
+            make_tab(data, "phpmanual", word);
+        }
+    );
+}
+
+function docs_python_jp(word) {
+    $.ajax({
+        url: "docs_python_jp?word="+word,
+    }).then(
+        function(data, status, xhr) {
+            make_tab(data, "docs_python_jp", word);
         }
     );
 }
@@ -41,17 +72,11 @@ function make_tab(data,a_title,tab_title){
 }
 
 $(document).ready(function(){
-    $("#command").focus();
-    $("#command").keydown(function(e){
+    $("input[accesskey=a]").focus();
+    $("input.command").keydown(function(e){
         //press enter
         if(e.keyCode == 13) {
-            $("#btn_run").click();
-        }
-    });
-    $("#alc").keydown(function(e){
-        //press enter
-        if(e.keyCode == 13) {
-            $("#btn_look").click();
+            $(this).next().click();
         }
     });
 });
