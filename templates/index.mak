@@ -16,7 +16,7 @@ input[type="text"] {
     <li class="nav-header">execute</li>
     <li>
         <div class="input-append">
-        <input type="text" class="span2" placeholder="commmand" id="command" />
+        <input type="text" class="span2" placeholder="(c)ommmand" id="command" accesskey="c"/>
         <button class="btn" type="button" id="btn_run"
             onclick='execute($("#command").val(), $("#command").val());'>run</button>
         </div>

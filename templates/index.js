@@ -26,6 +26,7 @@ function show_first_tab() {
 }
 
 $(document).ready(function(){
+    $("#command").focus();
     $("#command").keydown(function(e){
         //press enter
         if(e.keyCode == 13) {
