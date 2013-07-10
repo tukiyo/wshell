@@ -22,9 +22,9 @@ def execute(request):
     mak_lookup = TemplateLookup(directories=["templates/"])
     template = mak_lookup.get_template('execute.mak')
     command = get_request_value(request, 'command')
-    command_result = run(command)
     now=get_now()
-    print now
+    print now,
+    command_result = run(command)
     result = template.render_unicode(
             now=now,
             command_result=command_result
