@@ -1,7 +1,6 @@
 ## 実行方法
 
 * main.py を実行して http://localhost:8080/ にアクセスしてください。
-* [execute page] リンクがあるのでクリック。
-* コマンドを入力してexecuteを押す。
+* コマンドを入力して[run]を押す。もしくはEnterキー押下。
 
-![wshell.png](https://qiita-image-store.s3.amazonaws.com/0/25728/a8ef5d4b-e194-ab6f-dc9a-b71c33b38478.png)
+![wshell.png](https://qiita-image-store.s3.amazonaws.com/0/25728/2af37972-662e-d127-2ebb-f5a4d119a779.png)
