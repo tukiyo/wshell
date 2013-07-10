@@ -23,8 +23,10 @@ def execute(request):
     template = mak_lookup.get_template('execute.mak')
     command = get_request_value(request, 'command')
     command_result = run(command)
+    now=get_now()
+    print now
     result = template.render_unicode(
-            command_str=command,
+            now=now,
             command_result=command_result
         )
     return Response(result)
@@ -59,6 +61,12 @@ def run(command):
         command = "pwd && ls -F"
     print command
     return commands.getoutput(command)
+
+def get_now():
+    import datetime
+    import locale
+    d = datetime.datetime.today()
+    return '%04d-%02d-%02d %02d:%02d:%02d' % (d.year, d.month, d.day, d.hour, d.minute, d.second)
 
 
 if __name__ == '__main__':
