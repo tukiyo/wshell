@@ -10,6 +10,7 @@ from mako.lookup import TemplateLookup
 
 import commands
 import urllib
+import re
 
 @view_config(route_name='index')
 def index(request):
@@ -84,8 +85,16 @@ def get_request_value(request, param, default="", encode='utf-8'):
 def run(command):
     if command=="":
         command = "pwd && ls -F"
+    if is_ignore_command(command):
+        command = "echo cannot execute '%s'" % command
     print command
     return commands.getoutput(command)
+
+def is_ignore_command(command):
+    m = re.match("^([\s]*|.*[\W\s])(rm|sudo)[\s]*",command)
+    if m:
+        return True
+    return False
 
 def get_now():
     import datetime
@@ -104,4 +113,4 @@ if __name__ == '__main__':
     config.add_static_view(name='static', path='static')
     config.scan()
     app = config.make_wsgi_app()
-    serve(app, host='0.0.0.0')
+    serve(app, host='0.0.0.0', port='8080')
