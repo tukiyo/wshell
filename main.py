@@ -23,6 +23,8 @@ def execute(request):
     mak_lookup = TemplateLookup(directories=["templates/"])
     template = mak_lookup.get_template('execute.mak')
     command = get_request_value(request, 'command')
+    if is_allowed_ip(request.remote_addr) == False:
+        command = "echo 'not allowed at your IP address(%s).'" % request.remote_addr
     now=get_now()
     print now,
     command_result = run(command)
@@ -92,6 +94,12 @@ def run(command):
 
 def is_ignore_command(command):
     m = re.match("^([\s]*|.*[\W\s])(rm|sudo)[\s]*",command)
+    if m:
+        return True
+    return False
+
+def is_allowed_ip(remote_addr):
+    m = re.match("^(192.168.|10.0.|127.0.)",remote_addr)
     if m:
         return True
     return False
